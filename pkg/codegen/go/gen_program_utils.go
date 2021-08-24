@@ -72,6 +72,12 @@ func getHelperMethodIfNeeded(functionName string) (string, bool) {
 					panic(err.Error())
 				}
 			}`
+	case "sha1":
+		methodBody =
+			`func sha1(input string) pulumi.StringPtrInput {
+				inputBytes := []byte(input)
+				return pulumi.String(fmt.Sprintf("%x", sha1.Sum(inputBytes)))
+			}`
 	default:
 		methodBody = ""
 	}
