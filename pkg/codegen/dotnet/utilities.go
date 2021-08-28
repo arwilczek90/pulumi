@@ -127,11 +127,16 @@ func getHelperMethodIfNeeded(functionName string) (string, bool) {
 	var methodBody string
 
 	switch functionName {
+	case "filebase64":
+		methodBody =
+			`private static string ReadFileBase64(string path) {
+		return Convert.ToBase64String(System.Text.UTF8.GetBytes(File.ReadAllText(path)))
+	}`
 	case "sha1":
 		methodBody =
 			`private static string ComputeSHA1(string input) {
 		return BitConverter.ToString(
-			SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(%v))
+			SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(input))
 		).Replace("-","").ToLowerInvariant());
 	}`
 	default:
